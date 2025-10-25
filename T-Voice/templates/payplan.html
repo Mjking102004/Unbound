@@ -35,12 +35,56 @@
         <div class="card" id="planDetailsSection" style="display: none;">
             <h2>Your Plan Details</h2>
             <p id="planInfo">Plan information will appear here...</p>
-            <!-- Add whatever content you want to reveal -->
         </div>
 
     </main>
 
     <!-- Link to our JavaScript file -->
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <script>
+        document.getElementById('submitCode').addEventListener('click', async function() {
+            const code = document.getElementById('planCode').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const planDetailsSection = document.getElementById('planDetailsSection');
+
+            // Validate it's a 4-digit code
+            if (!/^\d{4}$/.test(code)) {
+                errorMessage.style.display = 'block';
+                errorMessage.innerText = 'Invalid code. Please enter a 4-digit code.';
+                planDetailsSection.style.display = 'none';
+                return;
+            }
+
+            try {
+                // Send request to Flask backend to verify the code
+                const response = await fetch('/verify-code', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ code: code })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Code found! Show the hidden section
+                    errorMessage.style.display = 'none';
+                    planDetailsSection.style.display = 'block';
+                    document.getElementById('planInfo').innerText = `Code verified! Plan details: ${JSON.stringify(result.data)}`;
+                } else {
+                    // Code not found
+                    errorMessage.style.display = 'block';
+                    errorMessage.innerText = result.message || 'Code not found.';
+                    planDetailsSection.style.display = 'none';
+                }
+            } catch (error) {
+                errorMessage.style.display = 'block';
+                errorMessage.innerText = 'Error verifying code. Please try again.';
+                planDetailsSection.style.display = 'none';
+            }
+        });
+    </script>
+
 </body>
 </html>
