@@ -16,6 +16,16 @@ def index():
     page_title = "Tellux"
     return render_template("index.html", title=page_title)
 
+
+# Route to serve the pay plan page
+@app.route("/payplan")
+def payplan():
+    """
+    Serves the pay plan page rendered from 'payplan.html'.
+    """
+    page_title = "Pay for Plan"
+    return render_template("payplan.html", title=page_title)
+
 # --- API Endpoints ---
 
 @app.route("/api/data")

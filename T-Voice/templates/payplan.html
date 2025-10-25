@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- The title is passed from the Flask backend -->
+    <title>{{ title }}</title>
+    <!-- Link to our CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Pay for a Plan</h1>
+    </header>
+
+    <main>
+        <p>This is a basic UI served by a Python Flask backend.</p>
+        
+         <div class="card" id="codeEntrySection">
+            <h2>Interact with the Backend</h2>
+            <p>Enter the code for your plan.</p>
+            <p>(You may need to check your email)</p>
+            
+            <form id="codeForm">
+                <input type="text" id="planCode" name="planCode" maxlength="4" pattern="[0-9]{4}" placeholder="Enter your 4-digit code">
+                <input type="button" id="submitCode" value="Enter">
+            </form>
+            
+            <!-- Error message area -->
+            <p id="errorMessage" style="display: none; color: red;"></p>
+        </div>
+
+        <!-- Hidden Section (revealed after successful verification) -->
+        <div class="card" id="planDetailsSection" style="display: none;">
+            <h2>Your Plan Details</h2>
+            <p id="planInfo">Plan information will appear here...</p>
+            <!-- Add whatever content you want to reveal -->
+        </div>
+
+    </main>
+
+    <!-- Link to our JavaScript file -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
