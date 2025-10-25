@@ -103,7 +103,7 @@ def verifyPayCode():
                 'data': plan_data
             })
         except Exception as e:
-            print(f"Error reading file: {e}")
+            print(f"Cannot read file: {e}")
             return jsonify({
                 'success': False,
                 'message': 'Error reading plan data.'
