@@ -26,7 +26,7 @@ main {
 }
 
 button {
-    background-color: #3498db;
+    background-color: #013d7d;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -46,4 +46,39 @@ button:hover {
     background-color: #ecf0f1;
     border-radius: 5px;
     min-height: 50px;
+}
+
+#add-event-button {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    margin-bottom: 1rem;
+}
+
+.event-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.event-name, .event-price {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.event-name {
+    flex-grow: 1;
+}
+
+.event-price {
+    width: 100px;
+}
+
+.delete-event-button {
+    background-color: #e74c3c;
+}
+
+.delete-event-button:hover {
+    background-color: #c0392b;
 }

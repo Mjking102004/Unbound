@@ -1,0 +1,16 @@
+{
+    "events": [
+        {
+            "name": "fligt",
+            "price": "23"
+        },
+        {
+            "name": "swim",
+            "price": "45"
+        },
+        {
+            "name": "drinks",
+            "price": "200"
+        }
+    ]
+}
