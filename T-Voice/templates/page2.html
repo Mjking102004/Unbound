@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Cost Estimator</h1>
+    </header>
+    <main>
+        <div class="card">
+            <button id="add-event-button">+</button>
+            <button id="save-button">Save</button>
+            <div id="events-container"></div>
+        </div>
+        <a href="{{ url_for('index') }}">Go back to Home</a>
+    </main>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
