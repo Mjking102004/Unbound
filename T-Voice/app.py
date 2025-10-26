@@ -14,7 +14,7 @@ def index():
     """
     # You can pass variables to your template like this:
     page_title = "Tellux"
-    return render_template("index.html", title=page_title)
+    return render_template("FirstPage.html", title=page_title)
 
 # --- API Endpoints ---
 

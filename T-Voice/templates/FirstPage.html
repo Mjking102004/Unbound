@@ -4,18 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tvoice</title>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
   
   <style>
     body {
-      font-family: 'Raleway', sans-serif;
-      background-color: #f7f9fc;
+      font-family: 'Poppins', sans-serif;
+      background-color: transparent;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
+      font-weight: 800px;
+
     }
 
     header {
@@ -28,6 +30,9 @@
       align-items: center;
       justify-content: center;
       width: 100%;
+      position: relative;
+      z-index: 1;
+      color: white;
     }
 
     h1 {
@@ -35,7 +40,49 @@
       font-size: 3rem;
       margin-bottom: 60px;
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .purple-text{
+      color: #761ca0;
+    }
+
+    .video-background video{
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -100;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .video-background::after{
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -99;
+    }
+
+    
 
     .button-container {
       display: flex;
@@ -46,7 +93,7 @@
 
     a.button {
       text-decoration: none;
-      background-color: #013D7D;
+      background-color: #761ca0;
       color: white;
       padding: 15px 40px;
       border-radius: 12px;
@@ -62,8 +109,9 @@
   </style>
 </head>
 <body>
+  <div class="content-wrapper">
   <header>
-    <h1>ONYX</h1>
+    <h1><span class="purple-text">Un</span>Bound</h1>
   </header>
 
   <main>
@@ -72,6 +120,12 @@
       <a href="pay-plan.html" class="button">Pay for Plan</a>
     </div>
   </main>
-  
+</div>
+
+  <div class="video-background">
+    <video autoplay loop muted plays-inline>
+      <source src="{{ url_for('static', filename='css/Plane_Taking_Off_Towards_Sunset.mp4') }}" type="video/mp4">
+  </video>
+</div>
 </body>
 </html>
