@@ -1,0 +1,11 @@
+{
+    "events": [
+        {
+            "name": "flight",
+            "price": 166.66666666666666
+        }
+    ],
+    "party_size": "3",
+    "travel_code": 3081,
+    "travel_date": ""
+}

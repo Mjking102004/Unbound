@@ -1,14 +1,18 @@
-# Unbound - Simple Flask Web Application
+# Unbound - Travel Cost Planner
 
-A simple Flask web application with a video background and a start page.
+A split payment plan for travel itineraries.
 
 ## Overview
 
+Unbound is a simple payment processing application that allows users to plan their travel expenses. Users can create a travel plan, add events with associated costs, and split the total cost among a party. Each plan is saved and can be retrieved using a unique 4-digit code for their specific travel plan.
+
 This project consists of:
 
-*   A **Python backend** built with Flask that serves a single HTML page.
-*   A **CSS file** for styling the page.
-*   A **video background**.
+*   A **Python backend** built with Flask that serves multiple HTML pages, handles form data, and saves/retrieves travel plans.
+*   **HTML templates** for the home page, plan creation, verification, and code display.
+*   **CSS files** for styling the application.
+*   **JavaScript files** for frontend interactivity.
+*   A **video background** for aesthetic appeal.
 
 ## Project Structure
 
@@ -19,13 +23,21 @@ This project consists of:
 ├── README.md           # This file
 ├── static/
 │   ├── css/
-│   │   └── style.css   # Stylesheet
+│   │   ├── create.css
+│   │   ├── popup.css
+│   │   └── style.css
 │   ├── js/
-│   │   └── script.js   # Frontend JavaScript (currently unused)
+│   │   ├── script.js
+│   │   └── verification.js
 │   └── videos/
-│       └── Plane.mp4 # Video file
-└── templates/
-    └── StartPage.html      # Main HTML page template
+│       └── Plane.mp4
+├── templates/
+│   ├── CodePopup.html
+│   ├── Create.html
+│   ├── Home.html
+│   └── Verification.html
+└── TravelCodes/
+    └── 3565.json
 ```
 
 ## Prerequisites
@@ -35,7 +47,6 @@ Before you begin, ensure you have the following installed:
 *   pip (Python package installer)
 
 ## Setup and Installation
-
 
 1.  **Install the required Python packages:**
     It's highly recommended to use a virtual environment.
@@ -52,4 +63,16 @@ Before you begin, ensure you have the following installed:
     ```
 
 2.  **View the application:**
-    Open your web browser and navigate to `http://127.0.0.1:5000`.
+    Open your web browser and navigate to `http://127.0.0.1:8088`.
+
+## Usage
+
+1.  **Create a Plan:**
+    *   Navigate to the "Create a Plan" page.
+    *   Add events and their costs.
+    *   Specify the number of people in the party to split the cost.
+    *   Save the plan to generate a unique 4-digit travel code.
+
+2.  **View a Plan:**
+    *   Navigate to the "Pay for Plan" page.
+    *   Enter the 4-digit travel code to view the saved travel plan.
