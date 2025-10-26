@@ -1,0 +1,12 @@
+{
+    "events": [
+        {
+            "name": "flight",
+            "price": "400"
+        },
+        {
+            "name": "hotel",
+            "price": "800"
+        }
+    ]
+}
