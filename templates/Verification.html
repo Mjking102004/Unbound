@@ -56,7 +56,7 @@
                 <div class="events-dropdown relative">
                     <button class="dropdown-button bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 w-full p-4 text-left font-bold text-white rounded-lg focus:outline-none flex justify-between items-center transition duration-300" id="dropdownButton">
                         <span>
-                            Select Optional Events 
+                            Travel Expenses
                             <span class="selected-count bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold ml-2" id="selectedCount">0</span>
                         </span>
                         <span class="arrow">▼</span>
@@ -70,7 +70,12 @@
                 <!-- Total Section -->
                 <div class="total-section mt-6 p-4 bg-white bg-opacity-10 rounded-lg text-right border border-gray-700">
                     <p class="text-gray-300 mb-2">Total Price:</p>
-                    <p class="total-price text-3xl font-bold text-green-400" id="totalPrice">$0</p>
+                    <p class="total-price text-2xl font-bold text-green-400" id="totalPrice">0</p>
+                    <div id="monthlyPayment" class="text-right" style="display: none;">
+                        <p class="text-gray-400">Monthly Payment:</p>
+                        <p id="monthlyPaymentAmount" class="text-lg font-bold text-cyan-400"></p>
+                    </div>
+                    
                     
                     <button id="proceedPayment" class="w-full primary-button py-3 text-xl font-bold text-white rounded-lg mt-4 cursor-pointer"
                             style="background: linear-gradient(45deg, #3b82f6, #0ea5e9);"> 
@@ -107,6 +112,7 @@
             });
         });
     </script>
+    <script src="{{ url_for('static', filename='js/verification.js') }}"></script>
 
 </body>
 </html>

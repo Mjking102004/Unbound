@@ -1,0 +1,23 @@
+{
+    "events": [
+        {
+            "name": "Concert",
+            "price": 55.0
+        },
+        {
+            "name": "hotel ",
+            "price": 80.0
+        },
+        {
+            "name": "Car Rental",
+            "price": 60.0
+        },
+        {
+            "name": "Flight to Los Angeles",
+            "price": 90.0
+        }
+    ],
+    "party_size": "5",
+    "travel_code": 3565,
+    "travel_date": "2026-11-26"
+}

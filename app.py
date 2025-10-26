@@ -34,6 +34,10 @@ def Create_page():
 def CodePopup_page():
     return render_template('CodePopup.html')
 
+@app.route('/Home.html')
+def Home_page():
+    return render_template('Home.html')
+
 @app.route("/save_travel_code", methods=['POST'])
 def save_travel_code():
     data = request.get_json()
@@ -56,6 +60,16 @@ def save_travel_code():
     with open(filepath, "w") as f:
         json.dump(data, f, indent=4)
     return jsonify({"status": "success", "filename": filename})
+
+@app.route("/get_travel_plan/<code>")
+def get_travel_plan(code):
+    filepath = os.path.join("TravelCodes", f"{code}.json")
+    if os.path.exists(filepath):
+        with open(filepath, "r") as f:
+            data = json.load(f)
+        return jsonify(data)
+    else:
+        return jsonify({"error": "Invalid code"}), 404
 
 # This is the standard boilerplate for running a Flask app
 if __name__ == "__main__":
