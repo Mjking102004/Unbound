@@ -1,15 +1,14 @@
-# Tellux - Simple Flask Web Application
+# Unbound - Simple Flask Web Application
 
-A basic "full-stack" web application demonstrating how a Python backend using the Flask framework can interact with a vanilla JavaScript frontend.
+A simple Flask web application with a video background and a start page.
 
 ## Overview
 
 This project consists of:
 
-*   A **Python backend** built with Flask that serves an HTML page and a JSON API endpoint.
-*   A **JavaScript frontend** that uses the Fetch API to request data from the backend and display it on the page without a full page reload.
-
-It serves as a clear and simple starting point for understanding the client-server model in web development.
+*   A **Python backend** built with Flask that serves a single HTML page.
+*   A **CSS file** for styling the page.
+*   A **video background**.
 
 ## Project Structure
 
@@ -19,13 +18,14 @@ It serves as a clear and simple starting point for understanding the client-serv
 ├── requirements.txt    # Python dependencies
 ├── README.md           # This file
 ├── static/
-│   └── js/
 │   ├── css/
 │   │   └── style.css   # Stylesheet
-│   └── js/ 
-│       └── script.js   # Frontend JavaScript
+│   ├── js/
+│   │   └── script.js   # Frontend JavaScript (currently unused)
+│   └── videos/
+│       └── Plane.mp4 # Video file
 └── templates/
-    └── index.html      # Main HTML page template
+    └── StartPage.html      # Main HTML page template
 ```
 
 ## Prerequisites
@@ -36,12 +36,8 @@ Before you begin, ensure you have the following installed:
 
 ## Setup and Installation
 
-1.  **Navigate to the project directory:**
-    ```bash
-    cd /workspaces/Tellux/Tellux
-    ```
 
-2.  **Install the required Python packages:**
+1.  **Install the required Python packages:**
     It's highly recommended to use a virtual environment.
     ```bash
     # Install dependencies from requirements.txt
@@ -56,4 +52,4 @@ Before you begin, ensure you have the following installed:
     ```
 
 2.  **View the application:**
-    Open your web browser and navigate to `http://127.0.0.1:5000`. Click the "Fetch Data" button to see the frontend communicate with the backend.
+    Open your web browser and navigate to `http://127.0.0.1:5000`.
