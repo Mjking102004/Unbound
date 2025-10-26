@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Using Flask template variable for consistency -->
+    <title>Unbound</title> 
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 relative">
+
+    <!-- Video Background Container --><div class="video-background">
+        <!-- VIDEO SOURCE: Path updated to user's specified location relative to the 'static' folder -->
+        <video autoplay loop muted playsinline>
+            <source src="{{ url_for('static', filename='videos/Plane.mp4') }}" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <div class="w-full max-w-4xl text-center z-10 space-y-8">
+        <!-- Logo/Title --><header class="mb-12">
+            <h1 class="text-6xl md:text-7xl font-extrabold unbound-text-gradient tracking-tight">UnBound</h1>
+            <p class="text-xl md:text-2xl text-gray-300 mt-2 leading-relaxed">Your journey begins here.</p>
+        </header>
+
+        <!-- Main Action Section --><main class="flex flex-col items-center justify-center space-y-6 md:space-y-0 md:flex-row md:space-x-8">
+
+            <!-- Card 1: Create a Plan -->
+            <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-xl p-8 shadow-2xl border border-purple-700 border-opacity-30 w-full md:w-1/2 max-w-sm transform transition duration-300 hover:scale-[1.02] hover:bg-opacity-15">
+                <h2 class="text-3xl font-semibold text-white mb-4 flex items-center justify-center">
+                    <!-- Icon: Briefcase --><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-purple-400"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    Create a Plan
+                </h2>
+                <p class="text-gray-300 mb-6 text-lg">Design your ideal financial journey. Tailored to your goals.</p>
+                <!-- Links to the /page2 route defined in your app.py -->
+                <a href="verification.html" 
+                   class="block w-full"
+                   onclick="showMockActionFeedback('Creating your personalized plan...')">
+                    <button class="primary-button w-full px-8 py-4 text-lg font-bold text-white rounded-lg focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-70">
+                        Get Started
+                    </button>
+                </a>
+            </div>
+
+            <!-- Card 2: Pay for Plan -->
+            <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-xl p-8 shadow-2xl border border-blue-600 border-opacity-30 w-full md:w-1/2 max-w-sm transform transition duration-300 hover:scale-[1.02] hover:bg-opacity-15">
+                <h2 class="text-3xl font-semibold text-white mb-4 flex items-center justify-center">
+                    <!-- Icon: Credit Card --><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-blue-400"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    Pay for Plan
+                </h2>
+                <p class="text-gray-300 mb-6 text-lg">Securely manage your payments and subscriptions.</p>
+                <!-- This is a placeholder link, no Flask route defined yet -->
+                <a href="verification.html" 
+                   class="block w-full"
+                   onclick="showMockActionFeedback('Proceeding to secure payment portal...')">
+                    <button class="primary-button w-full px-8 py-4 text-lg font-bold text-white rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-70"
+                            style="background: linear-gradient(45deg, #3b82f6, #0ea5e9);"> <!-- Blue gradient for this button -->Make Payment
+                    </button>
+                </a>
+            </div>
+        </main>
+        
+        <!-- Global Feedback Message --><div id="global-feedback" class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white bg-opacity-15 text-white py-3 px-6 rounded-full text-lg shadow-lg hidden"></div>
+
+    </div>
+
+    <!-- JavaScript for Interaction --><script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

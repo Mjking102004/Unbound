@@ -12,12 +12,16 @@ def index():
     The `render_template` function will look for 'index.html' 
     in the 'templates' folder.
     """
-    # You can pass variables to your template like this:
-    page_title = "Unbound"
-    return render_template("StartPage.html", title=page_title)
 
+ # Sets the page title used by the Canvas ({{ title }})
+    page_title = "UnBound - Your Journey Starts Here"
+    return render_template("Home.html", title=page_title)
+
+@app.route('/verification.html')
+def second_page():
+    return render_template('verification.html')
 
 # This is the standard boilerplate for running a Flask app
 if __name__ == "__main__":
     # debug=True will automatically reload the server when you make changes
-    app.run(debug=True, port=8080)
+    app.run(debug=True, port=8088)
