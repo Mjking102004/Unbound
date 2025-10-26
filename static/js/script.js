@@ -6,10 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const budgetTabButton = document.getElementById('budget-tab-button');
     const budgetTab = document.getElementById('budget-tab');
     const closeBudgetTab = document.getElementById('close-budget-tab');
+    updateTotalBudget();
+    updateEventList();
 
     if (addEventButton) {
         addEventButton.addEventListener('click', () => {
             addEvent();
+            updateTotalBudget();
+            updateEventList();
         });
     }
 
@@ -31,6 +35,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    eventsContainer.addEventListener('input', (event) => {
+        if (event.target.classList.contains('event-price') || event.target.classList.contains('event-name')) {
+            updateTotalBudget();
+            updateEventList();
+        }
+    });
+
+    function updateTotalBudget() {
+        const prices = document.querySelectorAll('.event-price');
+        let total = 0;
+        prices.forEach(priceInput => {
+            const price = parseFloat(priceInput.value) || 0;
+            total += price;
+        });
+        document.getElementById('total-amount-value').textContent = `${total.toFixed(2)}`;
+    }
+
+    function updateEventList() {
+        const eventList = document.getElementById('total-event-list');
+        eventList.innerHTML = '';
+        const eventBars = document.querySelectorAll('.event-bar');
+        eventBars.forEach(bar => {
+            const eventName = bar.querySelector('.event-name').value || 'Unnamed Event';
+            const eventPrice = parseFloat(bar.querySelector('.event-price').value) || 0;
+            const listItem = document.createElement('li');
+            listItem.textContent = `${eventName} - ${eventPrice.toFixed(2)}`;
+            eventList.prepend(listItem);
+        });
+    }
+
     function addEvent() {
         const eventId = `event-${Date.now()}`;
         const eventElement = document.createElement('div');
@@ -45,11 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
             </button>
         `;
 
-        eventsContainer.appendChild(eventElement);
+        eventsContainer.prepend(eventElement);
 
         const deleteButton = eventElement.querySelector('.delete-event-button');
         deleteButton.addEventListener('click', () => {
             document.getElementById(eventId).remove();
+            updateTotalBudget();
+            updateEventList();
         });
     }
 

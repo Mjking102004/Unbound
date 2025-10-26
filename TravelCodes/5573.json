@@ -1,0 +1,20 @@
+{
+    "events": [
+        {
+            "name": "Colorado",
+            "price": "200"
+        },
+        {
+            "name": "hotel",
+            "price": "39"
+        },
+        {
+            "name": "candy",
+            "price": "10"
+        },
+        {
+            "name": "poop",
+            "price": "2"
+        }
+    ]
+}
