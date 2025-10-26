@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title> 
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 relative">
+
+    <!-- Video Background Container --><div class="video-background">
+        <video autoplay loop muted playsinline>
+            <!-- Using Flask URL_FOR stub (assumes video is in static/css/) -->
+            <source src="{{ url_for('static', filename='css/Plane_Taking_Off_Towards_Sunset (1).mp4') }}" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <div class="w-full max-w-md z-10 space-y-8">
+        
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl text-white font-bold mb-2">Secure Payment Portal</h1>
+            <p class="text-lg text-gray-400">Manage your travel plan and select optional events.</p>
+        </header>
+
+        <!-- Main Content Area -->
+        <main>
+            
+            <!-- Card 1: Code Entry Section -->
+            <div id="codeEntrySection" class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 shadow-2xl border border-purple-700 border-opacity-30 w-full mb-6">
+                <h2 class="text-2xl font-semibold text-white mb-2">Enter Plan Code</h2>
+                <p class="text-gray-400 text-sm mb-4">(Check your email for your 4-digit verification code)</p>
+                
+                <form id="codeForm" class="flex flex-col space-y-4">
+                    <input type="text" id="planCode" name="planCode" maxlength="4" pattern="[0-9]{4}" 
+                           placeholder="0000" 
+                           class="w-full p-3 bg-white bg-opacity-5 border border-purple-500 rounded-lg text-white placeholder-gray-400 text-center text-xl tracking-wider focus:outline-none focus:ring-2 focus:ring-purple-400 transition duration-200">
+                    <input type="button" id="submitCode" value="Verify Code" class="primary-button w-full py-3 text-lg font-bold text-white rounded-lg cursor-pointer">
+                </form>
+                
+                <!-- Error message area -->
+                <p id="errorMessage" class="mt-3 text-red-400 font-medium hidden"></p>
+            </div>
+
+            <!-- Card 2: Plan Details & Event Selection (Hidden initially) -->
+            <div id="planDetailsSection" class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 shadow-2xl border border-blue-600 border-opacity-30 w-full" style="display: none;">
+                <h2 class="text-2xl font-semibold text-white mb-4">Plan Details: <span id="planName" class="unbound-text-gradient font-extrabold"></span></h2>
+                <p id="planInfo" class="text-gray-300 mb-6"></p>
+                
+                <!-- Events Dropdown -->
+                <div class="events-dropdown relative">
+                    <button class="dropdown-button bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 w-full p-4 text-left font-bold text-white rounded-lg focus:outline-none flex justify-between items-center transition duration-300" id="dropdownButton">
+                        <span>
+                            Select Optional Events 
+                            <span class="selected-count bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold ml-2" id="selectedCount">0</span>
+                        </span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    
+                    <div class="dropdown-content mt-2 bg-gray-800 bg-opacity-95 rounded-lg shadow-xl border border-gray-700 z-50" id="dropdownContent">
+                        <!-- Events populated by JS -->
+                    </div>
+                </div>
+                
+                <!-- Total Section -->
+                <div class="total-section mt-6 p-4 bg-white bg-opacity-10 rounded-lg text-right border border-gray-700">
+                    <p class="text-gray-300 mb-2">Total Price:</p>
+                    <p class="total-price text-3xl font-bold text-green-400" id="totalPrice">$0</p>
+                    
+                    <button id="proceedPayment" class="w-full primary-button py-3 text-xl font-bold text-white rounded-lg mt-4 cursor-pointer"
+                            style="background: linear-gradient(45deg, #3b82f6, #0ea5e9);"> 
+                        Proceed to Payment
+                    </button>
+                </div>
+            </div>
+
+            <!-- Back to Home Link -->
+            <div class="text-center mt-8">
+                <a href="{{ url_for('index') }}" class="text-gray-400 hover:text-purple-400 transition duration-200 text-sm font-medium">
+                    ← Back to Home
+                </a>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- JavaScript for Functionality -->
+    <script>
+        // Mock data to simulate fetching events based on a valid code
+        let eventsData = [
+            { id: 1, name: 'Hot Air Balloon Ride', price: 150.00, selected: false },
+            { id: 2, name: 'Exclusive Lounge Access', price: 45.00, selected: false },
+            { id: 3, name: 'City Tour Bus Pass', price: 25.00, selected: false },
+            { id: 4, name: 'Private Airport Transfer', price: 90.00, selected: false },
+        ];
+
+        let basePlanPrice = 0; // Set after code is verified
+        
+        const codeEntrySection = document.getElementById('codeEntrySection');
+        const planDetailsSection = document.getElementById('planDetailsSection');
+        const planNameElement = document.getElementById('planName');
+        const planInfoElement = document.getElementById('planInfo');
+        const errorMessage = document.getElementById('errorMessage');
+        const dropdownContent = document.getElementById('dropdownContent');
+        const selectedCountElement = document.getElementById('selectedCount');
+        const totalPriceElement = document.getElementById('totalPrice');
+
+        // --- Mock API/Verification Functions ---
+
+        document.getElementById('submitCode').addEventListener('click', mockVerifyCode);
+        
+        function mockVerifyCode() {
+            const planCode = document.getElementById('planCode').value;
+            errorMessage.classList.add('hidden');
+            
+            if (planCode === '1234') { 
+                // Simulate success and data load
+                basePlanPrice = 499.99;
+                planNameElement.textContent = 'Global Explorer';
+                planInfoElement.textContent = `Your plan is successfully verified. Base price: $${basePlanPrice.toFixed(2)}. Select optional add-ons below.`;
+                
+                codeEntrySection.style.display = 'none';
+                planDetailsSection.style.display = 'block';
+                
+                populateEvents();
+                updateCountAndTotal();
+                
+            } else {
+                // Simulate failure
+                errorMessage.textContent = 'Invalid code. Please ensure you entered the correct 4-digit number.';
+                errorMessage.classList.remove('hidden');
+            }
+        }
+
+        // --- Dropdown Logic Functions ---
+
+        document.getElementById('dropdownButton').addEventListener('click', toggleDropdown);
+
+        function toggleDropdown() {
+            dropdownContent.classList.toggle('show');
+            document.querySelector('.arrow').classList.toggle('rotate');
+        }
+
+        function populateEvents() {
+            dropdownContent.innerHTML = ''; // Clear previous content
+            eventsData.forEach(event => {
+                const item = document.createElement('div');
+                item.className = 'event-item flex items-center p-3 border-b border-gray-700 cursor-pointer text-gray-200 hover:bg-gray-700 transition duration-150';
+                item.innerHTML = `
+                    <input type="checkbox" id="event-${event.id}" data-id="${event.id}" class="event-checkbox form-checkbox h-5 w-5 text-purple-600 bg-gray-700 border-gray-600 rounded cursor-pointer" ${event.selected ? 'checked' : ''}>
+                    <div class="event-info flex-grow ml-3">
+                        <div class="event-name font-semibold text-white">${event.name}</div>
+                    </div>
+                    <div class="event-price text-lg font-bold text-blue-400">$${event.price.toFixed(2)}</div>
+                `;
+                
+                item.querySelector('.event-checkbox').addEventListener('change', handleEventSelection);
+                dropdownContent.appendChild(item);
+            });
+        }
+        
+        function handleEventSelection(event) {
+            const id = parseInt(event.target.dataset.id);
+            const isChecked = event.target.checked;
+            
+            const eventIndex = eventsData.findIndex(e => e.id === id);
+            if (eventIndex !== -1) {
+                eventsData[eventIndex].selected = isChecked;
+            }
+            updateCountAndTotal();
+        }
+
+        function updateCountAndTotal() {
+            let selectedCount = 0;
+            let totalAddOnPrice = 0;
+            
+            eventsData.forEach(event => {
+                if (event.selected) {
+                    selectedCount++;
+                    totalAddOnPrice += event.price;
+                }
+            });
+            
+            const finalTotal = basePlanPrice + totalAddOnPrice;
+            
+            selectedCountElement.textContent = selectedCount;
+            totalPriceElement.textContent = `$${finalTotal.toFixed(2)}`;
+        }
+        
+        document.getElementById('proceedPayment').addEventListener('click', () => {
+            alert('Proceeding to payment gateway... (Mock Action)');
+        });
+
+    </script>
+</body>
+</html>
