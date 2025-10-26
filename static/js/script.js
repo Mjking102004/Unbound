@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const events = [];
         const eventBars = document.querySelectorAll('.event-bar');
         const partyCount = document.getElementById('party-count').value;
+        const travelDate = document.getElementById('travel-date').value;
 
         if (eventBars.length === 0) {
             alert('Please add at least one event.');
@@ -118,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ events: events, party_size: partyCount, travel_code: travelCode }),
+            body: JSON.stringify({ events: events, party_size: partyCount, travel_code: travelCode, travel_date: travelDate }),
         })
         .then(response => { if (!response.ok) { throw new Error('Network response was not ok'); } return response.json(); })
         .then(data => {
