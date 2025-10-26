@@ -52,6 +52,15 @@
                 <h2 class="text-2xl font-semibold text-white mb-4">Plan Details: <span id="planName" class="unbound-text-gradient font-extrabold"></span></h2>
                 <p id="planInfo" class="text-gray-300 mb-6"></p>
                 
+                <!-- Toggle for enabling/disabling event selection -->
+                <div class="flex items-center justify-end mb-4 px-1">
+                    <label for="toggleSelectionFeature" class="text-sm font-medium text-gray-300 mr-3 hidden">Enable Selection</label>
+                    <label class="relative inline-flex items-center cursor-pointer hidden">
+                        <input type="checkbox" id="toggleSelectionFeature" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-gray-700 rounded-full peer peer-focus:ring-2 peer-focus:ring-purple-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+                    </label>
+                </div>
+
                 <!-- Events Dropdown -->
                 <div class="events-dropdown relative">
                     <button class="dropdown-button bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 w-full p-4 text-left font-bold text-white rounded-lg focus:outline-none flex justify-between items-center transition duration-300" id="dropdownButton">
@@ -61,8 +70,7 @@
                         </span>
                         <span class="arrow">▼</span>
                     </button>
-                    
-                    <div class="dropdown-content mt-2 bg-gray-800 bg-opacity-95 rounded-lg shadow-xl border border-gray-700 z-50" id="dropdownContent">
+                    <div class="dropdown-content mt-2 bg-gray-800 bg-opacity-95 rounded-lg shadow-xl border border-gray-700 z-50 selection-disabled" id="dropdownContent">
                         <!-- Events populated by JS -->
                     </div>
                 </div>
@@ -87,7 +95,7 @@
             <!-- Back to Home Link -->
             <div class="text-center mt-8">
                 <a href="{{ url_for('index') }}" class="text-gray-400 hover:text-purple-400 transition duration-200 text-sm font-medium">
-                    ← Back to Home
+                    Back to Home
                 </a>
             </div>
 
@@ -97,6 +105,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const codeInputs = document.querySelectorAll('.code-input');
+            const dropdownButton = document.getElementById('dropdownButton');
+            const selectionToggle = document.getElementById('toggleSelectionFeature');
 
             codeInputs.forEach((input, index) => {
                 input.addEventListener('input', (e) => {
@@ -110,6 +120,23 @@
                     }
                 });
             });
+
+            if (dropdownButton) {
+                dropdownButton.addEventListener('click', () => {
+                    const dropdownContent = document.getElementById('dropdownContent');
+                    const arrow = dropdownButton.querySelector('.arrow');
+
+                    dropdownContent.classList.toggle('hidden');
+                    arrow.classList.toggle('rotate-180'); // A simple visual indicator
+                });
+            }
+
+            if (selectionToggle) {
+                selectionToggle.addEventListener('change', (e) => {
+                    const dropdownContent = document.getElementById('dropdownContent');
+                    dropdownContent.classList.toggle('selection-disabled', !e.target.checked);
+                });
+            }
         });
     </script>
     <script src="{{ url_for('static', filename='js/verification.js') }}"></script>
