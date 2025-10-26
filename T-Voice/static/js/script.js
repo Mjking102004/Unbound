@@ -39,7 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
         eventElement.innerHTML = `
             <input type="text" class="event-name" placeholder="Event Name (e.g., Flight, Hotel)">
             <input type="number" class="event-price" placeholder="Price">
-            <button class="delete-event-button">Delete</button>
+            <button class="delete-event-button">
+                <i class="fa-solid fa-trash"></i>
+            </button>
         `;
 
         eventsContainer.appendChild(eventElement);
