@@ -82,3 +82,44 @@ button:hover {
 .delete-event-button:hover {
     background-color: #c0392b;
 }
+
+/* Tab Styles */
+.tab-content {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+}
+
+.tab-content.active {
+    width: 300px;
+}
+
+.tab-content .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 36px;
+    text-decoration: none;
+    color: #333;
+}
+
+.tab-content h2 {
+    padding: 0 25px;
+    color: #2c3e50;
+}
+
+.tab-content input {
+    width: calc(100% - 50px);
+    padding: 10px;
+    margin: 10px 25px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

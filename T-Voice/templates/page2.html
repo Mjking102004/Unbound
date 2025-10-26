@@ -14,10 +14,20 @@
         <div class="card">
             <button id="add-event-button">+</button>
             <button id="save-button">Save</button>
+            <button id="budget-tab-button">Budget</button>
             <div id="events-container"></div>
         </div>
         <a href="{{ url_for('index') }}">Go back to Home</a>
     </main>
+
+    <div id="budget-tab" class="tab-content">
+        <a href="javascript:void(0)" class="close-btn" id="close-budget-tab">&times;</a>
+        <h2>Budget Planner</h2>
+        <input type="text" placeholder="Title">
+        <input type="text" placeholder="Country">
+        <input type="text" placeholder="City">
+        <input type="number" placeholder="Budget">
+    </div>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

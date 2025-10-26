@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const addEventButton = document.getElementById('add-event-button');
     const eventsContainer = document.getElementById('events-container');
     const saveButton = document.getElementById('save-button');
+    const budgetTabButton = document.getElementById('budget-tab-button');
+    const budgetTab = document.getElementById('budget-tab');
+    const closeBudgetTab = document.getElementById('close-budget-tab');
 
     if (addEventButton) {
         addEventButton.addEventListener('click', () => {
@@ -12,6 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (saveButton) {
         saveButton.addEventListener('click', () => {
             saveTravelCode();
+        });
+    }
+
+    if (budgetTabButton) {
+        budgetTabButton.addEventListener('click', () => {
+            budgetTab.classList.toggle('active');
+        });
+    }
+
+    if (closeBudgetTab) {
+        closeBudgetTab.addEventListener('click', () => {
+            budgetTab.classList.remove('active');
         });
     }
 
