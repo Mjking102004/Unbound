@@ -52,6 +52,7 @@ h1 {
     min-height: 400px; /* 👈 Ensures both boxes have same height */
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 /* --- Keep both cards equal height dynamically --- */
@@ -176,4 +177,28 @@ main > a:hover {
 #total-event-list li {
     padding: 8px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+#party-count {
+        width: 60px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+
+}
+.summary-footer{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.party-group{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem; 
 }

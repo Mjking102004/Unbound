@@ -30,16 +30,29 @@ def verification_page():
 def Create_page():
     return render_template('Create.html')
 
+@app.route('/CodePopup.html')
+def CodePopup_page():
+    return render_template('CodePopup.html')
+
 @app.route("/save_travel_code", methods=['POST'])
 def save_travel_code():
     data = request.get_json()
-    
-    while True:
-        filename = f"{random.randint(1000, 9999)}.json"
-        filepath = os.path.join("TravelCodes", filename)
-        if not os.path.exists(filepath):
-            break
-            
+    travel_code = data.get('travel_code')
+
+    # Get party size and divide prices if available
+    party_size = data.get('party_size')
+    if party_size and int(party_size) > 1:
+        party_size = int(party_size)
+        for item in data.get('events', []):
+            if 'price' in item:
+                try:
+                    item['price'] = float(item['price']) / party_size
+                except (ValueError, TypeError):
+                    pass # Handle cases where price might not be a valid number
+
+    filename = f"{travel_code}.json"
+    filepath = os.path.join("TravelCodes", filename)
+
     with open(filepath, "w") as f:
         json.dump(data, f, indent=4)
     return jsonify({"status": "success", "filename": filename})

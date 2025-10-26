@@ -92,6 +92,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function saveTravelCode() {
         const events = [];
         const eventBars = document.querySelectorAll('.event-bar');
+        const partyCount = document.getElementById('party-count').value;
+
+        if (eventBars.length === 0) {
+            alert('Please add at least one event.');
+            return;
+        }
+
+        if (partyCount < 2) {
+            alert('Party size must be at least 2.');
+            return;
+        }
+
+        const travelCode = Math.floor(1000 + Math.random() * 9000);
+        window.location.href = `/CodePopup.html?code=${travelCode}`;
 
         eventBars.forEach(bar => {
             const eventName = bar.querySelector('.event-name').value;
@@ -104,12 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ events: events }),
+            body: JSON.stringify({ events: events, party_size: partyCount, travel_code: travelCode }),
         })
-        .then(response => response.json())
+        .then(response => { if (!response.ok) { throw new Error('Network response was not ok'); } return response.json(); })
         .then(data => {
             console.log('Success:', data);
-            alert('TravelCode saved!');
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -129,4 +142,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000); 
     }
 });
-

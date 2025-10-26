@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Travel Code</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/popup.css') }}">
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="{{ url_for('static', filename='videos/Plane.mp4') }}" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+    </div>
+    <main>
+        <div class="popup">
+            <h2>Your Travel Code is:</h2>
+            <div class="code" id="travel-code-display"></div>
+            <button onclick="window.location.href='Home.html'">Return to Home</button>
+        </div>
+    </main>
+
+    <script>
+        // Get the code from the URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const travelCode = urlParams.get('code');
+        document.getElementById('travel-code-display').textContent = travelCode;
+    </script>
+</body>
+</html>

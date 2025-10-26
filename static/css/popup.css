@@ -1,0 +1,58 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--bg);
+    color: #e0e7ff;
+}
+
+.popup {
+    width: 400px; /* Increased width */
+    padding: 30px;
+    background-color: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    margin-top: 0;
+    color: white;
+    font-size: 1.8rem;
+}
+
+.code {
+    font-size: 2.5em; /* Made the code bigger */
+    font-weight: bold;
+    margin: 20px 0;
+    color: var(--accent);
+    background: linear-gradient(90deg, #a78bfa, #818cf8, #3b82f6, #0ea5e9);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    background: var(--primary-grad);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+    filter: brightness(1.1);
+}
