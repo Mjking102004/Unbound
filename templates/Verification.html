@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title> 
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 relative">
+
+    <!-- Video Background Container --><div class="video-background">
+        <video autoplay loop muted playsinline>
+            <!-- Using Flask URL_FOR stub (assumes video is in static/css/) -->
+            <source src="{{ url_for('static', filename='videos/Plane.mp4') }}" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <div class="w-full max-w-md z-10 space-y-8">
+        
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl text-white font-bold mb-2">Secure Payment Portal</h1>
+            <p class="text-lg text-gray-400">Manage your travel plan and select optional events.</p>
+        </header>
+
+        <!-- Main Content Area -->
+        <main>
+            
+            <!-- Card 1: Code Entry Section -->
+            <div id="codeEntrySection" class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 shadow-2xl border border-purple-700 border-opacity-30 w-full mb-6">
+                <h2 class="text-2xl font-semibold text-white mb-2">Enter Plan Code</h2>
+                <p class="text-gray-400 text-sm mb-4">(Check your email for your 4-digit verification code)</p>
+                
+                <form id="codeForm" class="flex flex-col space-y-4">
+                    <input type="text" id="planCode" name="planCode" maxlength="4" pattern="[0-9]{4}" 
+                           placeholder="0000" 
+                           class="w-full p-3 bg-white bg-opacity-5 border border-purple-500 rounded-lg text-white placeholder-gray-400 text-center text-xl tracking-wider focus:outline-none focus:ring-2 focus:ring-purple-400 transition duration-200">
+                    <input type="button" id="submitCode" value="Verify Code" class="primary-button w-full py-3 text-lg font-bold text-white rounded-lg cursor-pointer">
+                </form>
+                
+                <!-- Error message area -->
+                <p id="errorMessage" class="mt-3 text-red-400 font-medium hidden"></p>
+            </div>
+
+            <!-- Card 2: Plan Details & Event Selection (Hidden initially) -->
+            <div id="planDetailsSection" class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 shadow-2xl border border-blue-600 border-opacity-30 w-full" style="display: none;">
+                <h2 class="text-2xl font-semibold text-white mb-4">Plan Details: <span id="planName" class="unbound-text-gradient font-extrabold"></span></h2>
+                <p id="planInfo" class="text-gray-300 mb-6"></p>
+                
+                <!-- Events Dropdown -->
+                <div class="events-dropdown relative">
+                    <button class="dropdown-button bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 w-full p-4 text-left font-bold text-white rounded-lg focus:outline-none flex justify-between items-center transition duration-300" id="dropdownButton">
+                        <span>
+                            Select Optional Events 
+                            <span class="selected-count bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold ml-2" id="selectedCount">0</span>
+                        </span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    
+                    <div class="dropdown-content mt-2 bg-gray-800 bg-opacity-95 rounded-lg shadow-xl border border-gray-700 z-50" id="dropdownContent">
+                        <!-- Events populated by JS -->
+                    </div>
+                </div>
+                
+                <!-- Total Section -->
+                <div class="total-section mt-6 p-4 bg-white bg-opacity-10 rounded-lg text-right border border-gray-700">
+                    <p class="text-gray-300 mb-2">Total Price:</p>
+                    <p class="total-price text-3xl font-bold text-green-400" id="totalPrice">$0</p>
+                    
+                    <button id="proceedPayment" class="w-full primary-button py-3 text-xl font-bold text-white rounded-lg mt-4 cursor-pointer"
+                            style="background: linear-gradient(45deg, #3b82f6, #0ea5e9);"> 
+                        Proceed to Payment
+                    </button>
+                </div>
+            </div>
+
+            <!-- Back to Home Link -->
+            <div class="text-center mt-8">
+                <a href="{{ url_for('index') }}" class="text-gray-400 hover:text-purple-400 transition duration-200 text-sm font-medium">
+                    ← Back to Home
+                </a>
+            </div>
+
+        </main>
+    </div>
+</body>
+</html>
