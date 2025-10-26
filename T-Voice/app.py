@@ -32,7 +32,16 @@ def get_data():
     }
     return jsonify(data)
 
+@app.route('/SecondPage.html')
+def second_page():
+    return render_template('SecondPage.html')
+
+@app.route('/ThirdPage.html')
+def third_page():
+    return render_template('ThirdPage.html')
+
+
 # This is the standard boilerplate for running a Flask app
 if __name__ == "__main__":
     # debug=True will automatically reload the server when you make changes
-    app.run(debug=True)
+    app.run(debug=True, port = 8080)

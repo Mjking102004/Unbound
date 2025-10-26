@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Plan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    /* --- Base Styles --- */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: transparent;
+        color: white;
+        margin: 0;
+        padding: 40px;
+    }
+
+    /* --- Video Background & Overlay --- */
+    .video-background video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -100;
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+    }
+
+    .video-background::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: -99;
+    }
+
+    /* --- Page Title --- */
+    h1 {
+        color: white;
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    /* --- Unified Card Style --- */
+    .card {
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 25px 30px;
+        box-sizing: border-box;
+        margin-bottom: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        min-height: 400px; /* 👈 Ensures both boxes have same height */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    /* --- Keep both cards equal height dynamically --- */
+    .cards-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 25px;
+    }
+
+    /* --- Slide-out "Travel Chat" Panel --- */
+    .tab-content {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1001;
+        top: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    }
+
+    .tab-content.active {
+        width: 300px;
+    }
+
+    .tab-content .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        font-size: 36px;
+        text-decoration: none;
+        color: #eee;
+    }
+
+    .tab-content h2 {
+        padding: 0 25px;
+        color: white;
+    }
+
+    /* --- Form Elements (Inputs/Buttons) --- */
+    input[type="text"],
+    input[type="number"] {
+        width: calc(100% - 50px);
+        padding: 12px;
+        margin: 10px 25px;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    #events-container input {
+        margin: 5px 0;
+        width: 100%;
+    }
+
+    ::placeholder {
+        color: #ccc;
+        opacity: 1;
+    }
+
+    button {
+        background-color: #761ca0;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        margin-right: 10px;
+    }
+
+    button:hover {
+        background-color: #0250A8;
+        transform: translateY(-2px);
+    }
+
+    /* --- Links --- */
+    main > a {
+        color: #eee;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+        margin-left: 5px;
+    }
+
+    main > a:hover {
+        color: #761ca0;
+    }
+
+    /* --- Inner Card Content --- */
+    .card h2 {
+        margin-top: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding-bottom: 10px;
+    }
+
+    .final-total {
+        font-weight: 700;
+        font-size: 1.3rem;
+        margin-top: 15px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    #total-event-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    #total-event-list li {
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+</style>
+
+<body>
+
+    <div class="video-background">
+        <video autoplay loop muted plays-inline>
+            <source src="{{ url_for('static', filename='css/Plane_Taking_Off_Towards_Sunset.mp4') }}" type="video/mp4">
+        </video>
+    </div>
+
+    <header>
+        <h1 style="font-family: 'Poppins', sans-serif; font-weight: 500;">Cost Estimator</h1>
+
+    </header>
+
+    <main>
+        <div class="cards-wrapper">
+            <!-- Cost Estimator Card -->
+            <div class="card">
+                <div>
+                    <button id="add-event-button">+</button>
+                    <button id="save-button">Save</button>
+                    <button id="budget-tab-button">Travel Chat</button>
+                    <div id="events-container"></div>
+                </div>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="card">
+                <h2>Summary</h2>
+                <ul id="total-event-list"></ul>
+                <div class="final-total">
+                    <strong>Total Amount:</strong>
+                    <span id="total-amount-value">$0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <a href="{{ url_for('index') }}">Go back to Home</a>
+    </main>
+
+    <!-- Travel Chat Side Panel -->
+    <div id="budget-tab" class="tab-content">
+        <a href="javascript:void(0)" class="close-btn" id="close-budget-tab">&times;</a>
+        <h2 >Travel Chat</h2>
+        <input type="text" placeholder="Country">
+        <input type="text" placeholder="City">
+        <input type="number" placeholder="Budget">
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+
